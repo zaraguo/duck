@@ -34,7 +34,7 @@
   width: 150rpx;
   height: 150rpx;
   border-radius: 75rpx;
-  border: 4rpx solid #4caf50;
+  border: 4rpx solid rgba(0, 119, 255, 0.23);
 }
 
 .username {
