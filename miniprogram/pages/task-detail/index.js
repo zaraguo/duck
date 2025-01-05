@@ -67,6 +67,11 @@ Page({
       const task = tasks[0];
       const members = task?.members || [];
 
+      if (!members.length) {
+        this.setData({task});
+        return;
+      }
+
       const memberRes = await wx.cloud.callFunction({
         name: "duck",
         data: {
