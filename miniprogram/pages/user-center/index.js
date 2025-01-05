@@ -1,4 +1,4 @@
-const { envList } = require('../../envList');
+const {envList} = require('../../envList');
 
 // pages/me/index.js
 Page({
@@ -6,55 +6,98 @@ Page({
    * 页面的初始数据
    */
   data: {
-    openId: '',
-    showTip: false,
-    title:"",
-    content:""
+    isRegistered: false,
+    userInfo: null,
+    showRegisterModal: false,
+    registerUsername: ''
   },
 
-  getOpenId() {
-    wx.showLoading({
-      title: '',
-    });
-    wx.cloud
-      .callFunction({
-        name: 'quickstartFunctions',
-        data: {
-          type: 'getOpenId',
-        },
-      })
-      .then((resp) => {
-        this.setData({
-          haveGetOpenId: true,
-          openId: resp.result.openid,
-        });
-        wx.hideLoading();
-      })
-      .catch((e) => {
-        wx.hideLoading();
-        const { errCode, errMsg } = e
-        if (errMsg.includes('Environment not found')) {
-          this.setData({
-            showTip: true,
-            title: "云开发环境未找到",
-            content: "如果已经开通云开发，请检查环境ID与 `miniprogram/app.js` 中的 `env` 参数是否一致。"
-          });
-          return
-        }
-        if (errMsg.includes('FunctionName parameter could not be found')) {
-          this.setData({
-            showTip: true,
-            title: "请上传云函数",
-            content: "在'cloudfunctions/quickstartFunctions'目录右键，选择【上传并部署-云端安装依赖】，等待云函数上传完成后重试。"
-          });
-          return
-        }
+  onLoad: function () {
+    this.checkUserRegistration();
+  },
+
+  checkUserRegistration: async function () {
+    const userStr = wx.getStorageSync('user');
+    if (userStr) {
+      this.setData({
+        userInfo: JSON.parse(userStr),
+        isRegistered: true
       });
+    } else {
+      const res = await wx.cloud.callFunction({
+        name: "duck",
+        data: {
+          type: "getMyInfo",
+        },
+      });
+
+      const user = res?.result;
+      if (user) {
+        this.setData({
+          isRegistered: true,
+          userInfo: user
+        });
+        wx.setStorageSync('user', JSON.stringify(user));
+      } else {
+        this.setData({
+          isRegistered: false
+        });
+      }
+    }
   },
 
-  gotoWxCodePage() {
-    wx.navigateTo({
-      url: `/pages/exampleDetail/index?envId=${envList?.[0]?.envId}&type=getMiniProgramCode`,
+  showRegisterModal: function () {
+    this.setData({
+      showRegisterModal: true
     });
   },
+
+  onUsernameInput: function (e) {
+    this.setData({
+      registerUsername: e.detail.value
+    });
+  },
+
+  cancelRegister: function () {
+    this.setData({
+      showRegisterModal: false,
+      registerUsername: ''
+    });
+  },
+
+  confirmRegister: async function () {
+    if (!this.data.registerUsername.trim()) {
+      wx.showToast({
+        title: '请输入用户名',
+        icon: 'none'
+      });
+      return;
+    }
+
+    const res = await wx.cloud.callFunction({
+      name: "duck",
+      data: {
+        type: "register",
+        data: {
+          name: this.data.registerUsername,
+        }
+      },
+    });
+
+    const user = res?.result;
+    if (user) {
+      wx.showToast({
+        title: '注册成功',
+        icon: 'success'
+      });
+      this.setData({
+        showRegisterModal: false
+      });
+      this.checkUserRegistration();
+    }
+  },
+
+  preventTouchMove: function () {
+    // 防止背景滚动
+  }
 });

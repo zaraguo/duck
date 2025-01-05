@@ -6,16 +6,12 @@ const db = cloud.database();
 exports.main = async (event, context) => {
   let {OPENID} = cloud.getWXContext();
 
-  const query = {};
-  if (event?.data?.id) {
-    query._id = event.data.id;
-  }
-  const result = await db.collection('task')
-    .where(query)
+  const result = await db.collection('user')
+    .where({
+      open_id: OPENID
+    })
     .skip(0)
-    .limit(100)
+    .limit(1)
     .get();
-  return {
-    tasks: result?.data,
-  };
+  return result?.data?.[0];
 };

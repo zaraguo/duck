@@ -1,0 +1,97 @@
+.container {
+  padding: 20rpx;
+  background-color: #f0f8ff;
+  min-height: 100vh;
+}
+
+.header {
+  padding: 20rpx 0;
+  margin-bottom: 20rpx;
+}
+
+.title {
+  font-size: 44rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.task-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx;
+}
+
+.card {
+  background-color: #ffffff;
+  border-radius: 20rpx;
+  padding: 30rpx;
+  box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.1);
+}
+
+.task-item {
+  display: flex;
+  flex-direction: column;
+  gap: 16rpx;
+}
+
+.task-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.task-name {
+  font-size: 36rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.task-target {
+  display: flex;
+  align-items: baseline;
+}
+
+.target-value {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #4caf50;
+}
+
+.target-unit {
+  font-size: 24rpx;
+  color: #666;
+  margin-left: 4rpx;
+}
+
+.task-description {
+  font-size: 28rpx;
+  color: #666;
+  line-height: 1.5;
+}
+
+.task-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 16rpx;
+}
+
+.members-info {
+  display: flex;
+  align-items: center;
+}
+
+.icon {
+  width: 32rpx;
+  height: 32rpx;
+  margin-right: 8rpx;
+}
+
+.members-count {
+  font-size: 24rpx;
+  color: #666;
+}
+
+.task-progress {
+  width: 200rpx;
+}
