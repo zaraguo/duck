@@ -3,7 +3,7 @@ Page({
     tasks: [],
   },
 
-  onLoad(options) {
+  onShow(options) {
     this.loadTaskList();
   },
 

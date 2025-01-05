@@ -13,7 +13,7 @@ Page({
     openId: '',
   },
 
-  async onShow(options) {
+  async onload(options) {
     const user = await this.checkUserRegistration();
 
     if (user) {
