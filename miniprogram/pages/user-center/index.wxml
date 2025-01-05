@@ -1,11 +1,7 @@
 <wxs src="./utils.wxs" module="utils"/>
 
 <view class="container">
-<view class="header">
-    <text class="title">个人中心</text>
-</view>
-
-<view wx:if="{{isRegistered}}" class="card user-info">
+<view wx:if="{{isRegistered}}" class="card user-info full-width">
     <image class="avatar" src="{{userInfo.avatarUrl || '/images/default-avatar.png'}}" mode="aspectFill"></image>
     <text class="username">{{userInfo.name}}</text>
     <view class="info-item">

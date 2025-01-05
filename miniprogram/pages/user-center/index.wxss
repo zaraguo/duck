@@ -157,6 +157,11 @@
   font-size: 28rpx;
 }
 
+.full-width {
+  width: 100%;
+  box-sizing: border-box;
+}
+
 .modal-footer {
   display: flex;
   justify-content: space-between;

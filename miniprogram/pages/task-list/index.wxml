@@ -1,9 +1,5 @@
 <view class="container">
-    <view class="header">
-        <text class="title">任务列表</text>
-    </view>
-
-    <view class="task-list">
+    <view class="task-list full-width">
         <block wx:for="{{tasks}}" wx:key="_id">
             <view class="card task-item" bindtap="navigateToTaskDetail" data-task-id="{{item._id}}">
                 <view class="task-header">
@@ -19,9 +15,9 @@
                         <image class="icon" src="/images/group-icon.png" mode="aspectFit"></image>
                         <text class="members-count">{{item.members.length}} 人参与</text>
                     </view>
-                    <view class="task-progress">
-                        <progress percent="{{item.progress}}" stroke-width="4" color="#4caf50" backgroundColor="#e0e0e0" />
-                    </view>
+<!--                    <view class="task-progress">-->
+<!--                        <progress percent="{{item.progress}}" stroke-width="4" color="#4caf50" backgroundColor="#e0e0e0" />-->
+<!--                    </view>-->
                 </view>
             </view>
         </block>

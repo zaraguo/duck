@@ -28,6 +28,11 @@
   box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.1);
 }
 
+.full-width {
+  width: 100%;
+  box-sizing: border-box;
+}
+
 .task-item {
   display: flex;
   flex-direction: column;
