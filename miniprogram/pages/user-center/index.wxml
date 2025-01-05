@@ -14,7 +14,7 @@
     <!--    </view>-->
 </view>
 
-<view wx:else class="card register-card">
+<view wx:else class="card register-card full-width">
     <text class="register-text">您还未注册，请点击下方按钮进行注册</text>
     <button class="register-button" bindtap="showRegisterModal">立即注册</button>
 </view>
