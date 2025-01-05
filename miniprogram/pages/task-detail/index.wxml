@@ -26,8 +26,11 @@
     <view class="members-list">
         <block wx:for="{{members}}" wx:key="id">
             <view class="member-item">
-                <view class="member-avatar" style="background-color: {{utils.getAvatarColor(item)}}">
-                    {{memberMap[item].name[0]}}
+                <view class="member-avatar-container">
+                    <view class="member-avatar" style="background-color: {{utils.getAvatarColor(item)}}">
+                        {{memberMap[item].name[0]}}
+                    </view>
+                    <image wx:if="{{index === 0}}" class="crown-icon" src="/images/crown-icon.png" mode="aspectFit"></image>
                 </view>
                 <view class="member-info">
                     <text class="member-name">{{memberMap[item].name}}</text>

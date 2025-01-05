@@ -122,7 +122,6 @@ button.quick-button:active {
   justify-content: center;
   font-size: 32rpx;
   font-weight: bold;
-  margin-right: 24rpx;
   flex-shrink: 0;
 }
 
@@ -206,6 +205,20 @@ button.quick-button:active {
 .checkin-time {
   font-size: 24rpx;
   color: #999;
+}
+
+.member-avatar-container {
+  position: relative;
+  margin-right: 24rpx;
+}
+
+.crown-icon {
+  position: absolute;
+  top: -20rpx;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 40rpx;
+  height: 40rpx;
 }
 
 .checkin-body {
