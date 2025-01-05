@@ -210,7 +210,9 @@ button.quick-button:active {
 
 .checkin-body {
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row;
 }
 
 .checkin-quantity {
@@ -222,7 +224,6 @@ button.quick-button:active {
 .checkin-remarks {
   font-size: 26rpx;
   color: #666;
-  margin-top: 8rpx;
 }
 
 .modal {
