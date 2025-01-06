@@ -159,12 +159,21 @@ Page({
       return;
     }
 
-    await this.submitCheckIn(this.data.checkInQuantity, this.data.checkInRemarks);
+    const quantity = parseFloat(this.data.checkInQuantity);
+    if (quantity < 0.1) {
+      wx.showToast({
+        title: '最小打卡量为 0.1 L',
+        icon: 'none'
+      });
+      return;
+    }
+
+    await this.submitCheckIn(quantity, this.data.checkInRemarks);
   },
 
   async quickCheckIn(e) {
     const quantity = e.currentTarget.dataset.quantity;
-    await this.submitCheckIn(quantity);
+    await this.submitCheckIn(parseFloat(quantity));
   },
 
   async submitCheckIn(quantity, remarks) {
@@ -182,7 +191,7 @@ Page({
           type: "checkIn",
           data: {
             taskId,
-            quantity: parseFloat(quantity),
+            quantity,
             remarks: remarks,
           }
         },
