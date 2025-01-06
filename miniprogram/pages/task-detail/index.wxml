@@ -19,14 +19,11 @@
     <button class="main-check-in-button" bindtap="showCheckInModal" disabled="{{isCheckingIn || !isToday}}">
         <image src="/images/water-checkin-icon.png" mode="aspectFit" class="button-icon"/>
     </button>
-    <button class="quick-button" bindtap="quickCheckIn" data-quantity="0.5" disabled="{{isCheckingIn || !isToday}}">0.5
-        {{task.unit}}
+    <button class="quick-button" bindtap="quickCheckIn" data-quantity="0.5" disabled="{{isCheckingIn || !isToday}}">0.5 {{task.unit}}
     </button>
-    <button class="quick-button" bindtap="quickCheckIn" data-quantity="1" disabled="{{isCheckingIn || !isToday}}">1
-        {{task.unit}}
+    <button class="quick-button" bindtap="quickCheckIn" data-quantity="1" disabled="{{isCheckingIn || !isToday}}">1 {{task.unit}}
     </button>
-    <button class="quick-button" bindtap="quickCheckIn" data-quantity="1.5" disabled="{{isCheckingIn || !isToday}}">1.5
-        {{task.unit}}
+    <button class="quick-button" bindtap="quickCheckIn" data-quantity="1.5" disabled="{{isCheckingIn || !isToday}}">1.5 {{task.unit}}
     </button>
 </view>
 
@@ -48,8 +45,7 @@
                         <view class="progress-bar"
                               style="width: {{utils.calculateProgressWidth(utils.getSumRecords(sumRecords, item), task.target)}}%"></view>
                     </view>
-                    <text class="member-total-checkins">{{utils.getSumRecords(sumRecords, item)}} / {{task.target}}
-                        {{task.unit}}
+                    <text class="member-total-checkins">{{utils.getSumRecords(sumRecords, item)}} / {{task.target}} {{task.unit}}
                     </text>
                 </view>
             </view>
