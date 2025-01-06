@@ -350,3 +350,23 @@ button.quick-button:active {
   color: #fff;
 }
 
+.date-picker {
+  margin-top: 20rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.picker-view {
+  background-color: #e6f3ff;
+  padding: 10rpx 20rpx;
+  border-radius: 10rpx;
+  font-size: 28rpx;
+  color: #1890ff;
+  border: 1px solid #1890ff;
+}
+
+button[disabled] {
+  opacity: 0.5;
+  cursor: not-allowed;
+}

@@ -5,12 +5,25 @@ Page({
     members: [],
     records: [],
     sumRecords: [],
-    date: null,
     showCheckInModal: false,
     checkInQuantity: '',
     checkInRemarks: '',
     isCheckingIn: false,
     openId: '',
+    selectedDate: '',
+    currentDate: '',
+    isToday: true,
+  },
+
+  onDateChange: function(e) {
+    const selectedDate = e.detail.value;
+    const isToday = selectedDate === this.data.currentDate;
+    this.setData({
+      selectedDate,
+      isToday
+    });
+    this.loadSumCheckInRecord(this.data.task._id);
+    this.loadTaskCheckInRecords(this.data.task._id);
   },
 
   async onLoad(options) {
@@ -31,13 +44,17 @@ Page({
     }
 
     const taskId = options?.id;
-    const now = new Date();
-    this.setData({
-      date: new Date(now.getFullYear(), now.getMonth(), now.getDate()) / 1
-    });
     await this.loadTaskDetails(taskId);
-    await this.loadTaskCheckInRecords(taskId);
+
+    const today = new Date();
+    const formattedDate = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`;
+    this.setData({
+      selectedDate: formattedDate,
+      currentDate: formattedDate,
+      isToday: true
+    });
     await this.loadSumCheckInRecord(taskId);
+    await this.loadTaskCheckInRecords(taskId);
   },
 
   checkUserRegistration: async function () {
@@ -59,7 +76,7 @@ Page({
     const res = await wx.cloud.callFunction({
       name: "duck",
       data: {
-        type: "fetchTaskList", data: {id: taskId, checkInDate: this.data.date}
+        type: "fetchTaskList", data: {id: taskId}
       },
     });
     const tasks = res?.result?.tasks;
@@ -93,9 +110,11 @@ Page({
   },
 
   async loadSumCheckInRecord(taskId) {
+    const selectedDateParts = this.data.selectedDate.split('-');
+    const checkInDate = new Date(selectedDateParts[0], parseInt(selectedDateParts[1]) - 1, selectedDateParts[2]) / 1;
     const res = await wx.cloud.callFunction({
       name: "duck",
-      data: {type: "sumCheckInRecord", data: {taskId, checkInDate: this.data.date}},
+      data: {type: "sumCheckInRecord", data: {taskId, checkInDate}},
     });
     const sumRecords = res?.result?.list;
     const sumRecordsMap = sumRecords.reduce((map, item) => {
@@ -112,9 +131,11 @@ Page({
   },
 
   async loadTaskCheckInRecords(taskId) {
+    const selectedDateParts = this.data.selectedDate.split('-');
+    const checkInDate = new Date(selectedDateParts[0], parseInt(selectedDateParts[1]) - 1, selectedDateParts[2]) / 1;
     const res = await wx.cloud.callFunction({
       name: "duck",
-      data: {type: "fetchCheckInRecordList", data: {taskId, checkInDate: this.data.date}},
+      data: {type: "fetchCheckInRecordList", data: {taskId, checkInDate}},
     });
     const records = res?.result?.records || [];
     this.setData({
