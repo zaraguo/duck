@@ -2,7 +2,7 @@
 
 <view class="container">
 <view class="card full-width task-info">
-    <image class="task-icon" src="/images/water-task-icon.png" mode="aspectFit"></image>
+    <image class="task-icon" src="{{task.icon}}" mode="aspectFit"></image>
     <text class="task-title">{{task.name}}</text>
     <text class="task-desc">{{task.description}}</text>
 
@@ -16,16 +16,22 @@
 </view>
 
 <view class="card full-width check-in-area">
-    <button class="main-check-in-button" bindtap="showCheckInModal" disabled="{{isCheckingIn || !isToday}}">
+    <block wx:if="{{task.name === '喝水打卡'}}">
+      <button class="main-check-in-button" bindtap="showCheckInModal" disabled="{{isCheckingIn || !isToday}}">
         <image src="/images/water-checkin-icon.png" mode="aspectFit" class="button-icon"/>
-    </button>
-    <button class="quick-button" bindtap="quickCheckIn" data-quantity="0.5" disabled="{{isCheckingIn || !isToday}}">0.5 {{task.unit}}
-    </button>
-    <button class="quick-button" bindtap="quickCheckIn" data-quantity="1" disabled="{{isCheckingIn || !isToday}}">1 {{task.unit}}
-    </button>
-    <button class="quick-button" bindtap="quickCheckIn" data-quantity="1.5" disabled="{{isCheckingIn || !isToday}}">1.5 {{task.unit}}
-    </button>
-</view>
+      </button>
+      <button class="quick-button" bindtap="quickCheckIn" data-quantity="0.5" disabled="{{isCheckingIn || !isToday}}">0.5 {{task.unit}}
+      </button>
+      <button class="quick-button" bindtap="quickCheckIn" data-quantity="1" disabled="{{isCheckingIn || !isToday}}">1 {{task.unit}}
+      </button>
+      <button class="quick-button" bindtap="quickCheckIn" data-quantity="1.5" disabled="{{isCheckingIn || !isToday}}">1.5 {{task.unit}}
+      </button>
+    </block>
+    <block wx:else>
+      <button class="quick-button" bindtap="quickCheckIn" data-quantity="1" disabled="{{isCheckingIn || !isToday}}">早睡</button>
+      <button class="quick-button" bindtap="quickCheckIn" data-quantity="1" disabled="{{isCheckingIn || !isToday}}">早起</button>
+    </block>
+  </view>
 
 <view class="card full-width check-in-summary">
     <text class="card-title">成员打卡情况</text>

@@ -9,14 +9,14 @@ const db = cloud.database();
 exports.main = async (event, context) => {
   try {
     const {
-      taskId, quantity, remarks, userId
+      taskId, quantity, remarks, userId, type
     } = event.data;
 
     let {OPENID} = cloud.getWXContext();
 
     const data = await db.collection('check_in_record').add({
       data: {
-        task_id: taskId, check_in_time: new Date(), remarks, quantity, user_id: OPENID
+        task_id: taskId, check_in_time: new Date(), remarks, quantity, user_id: OPENID, type
       }
     });
     return {
