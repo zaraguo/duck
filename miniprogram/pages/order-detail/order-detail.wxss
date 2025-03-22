@@ -1,0 +1,161 @@
+/* pages/order-detail/order-detail.wxss */
+.page-header {
+    padding: 20rpx 0;
+    margin-bottom: 20rpx;
+  }
+  
+  .page-title {
+    font-size: 36rpx;
+    font-weight: bold;
+  }
+  
+  .order-card {
+    padding: 30rpx;
+  }
+  
+  .order-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20rpx;
+  }
+  
+  .order-id {
+    font-size: 32rpx;
+    font-weight: bold;
+  }
+  
+  .order-status {
+    font-size: 24rpx;
+    padding: 4rpx 12rpx;
+    border-radius: 20rpx;
+  }
+  
+  .status-pending {
+    background-color: #fff8e1;
+    color: #f39c12;
+  }
+  
+  .status-processing {
+    background-color: #e3f2fd;
+    color: #3498db;
+  }
+  
+  .status-shipped {
+    background-color: #e8f5e9;
+    color: #9c27b0;
+  }
+  
+  .status-completed {
+    background-color: #e8f5e9;
+    color: #2ecc71;
+  }
+  
+  .status-cancelled {
+    background-color: #ffebee;
+    color: #e74c3c;
+  }
+  
+  .order-info {
+    margin-bottom: 20rpx;
+  }
+  
+  .info-item {
+    display: flex;
+    margin-bottom: 10rpx;
+  }
+  
+  .info-label {
+    width: 150rpx;
+    font-size: 28rpx;
+    color: var(--light-text);
+  }
+  
+  .info-value {
+    font-size: 28rpx;
+  }
+  
+  .divider {
+    height: 1rpx;
+    background-color: var(--border-color);
+    margin: 30rpx 0;
+  }
+  
+  .section-title {
+    font-size: 30rpx;
+    font-weight: bold;
+    margin-bottom: 20rpx;
+  }
+  
+  .order-items {
+    margin-bottom: 20rpx;
+  }
+  
+  .order-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20rpx 0;
+    border-bottom: 1rpx solid var(--border-color);
+  }
+  
+  .order-item:last-child {
+    border-bottom: none;
+  }
+  
+  .item-info {
+    flex: 1;
+  }
+  
+  .item-name {
+    display: block;
+    font-size: 28rpx;
+    margin-bottom: 10rpx;
+  }
+  
+  .item-price {
+    display: block;
+    font-size: 26rpx;
+    color: var(--light-text);
+  }
+  
+  .item-quantity {
+    font-size: 28rpx;
+    margin: 0 20rpx;
+  }
+  
+  .item-total {
+    font-size: 28rpx;
+    font-weight: bold;
+  }
+  
+  .order-summary {
+    margin-bottom: 20rpx;
+  }
+  
+  .summary-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10rpx;
+    font-size: 28rpx;
+  }
+  
+  .summary-item.total {
+    font-size: 32rpx;
+    font-weight: bold;
+  }
+  
+  .order-actions {
+    display: flex;
+    justify-content: flex-end;
+  }
+  
+  .action-btn {
+    margin-left: 20rpx;
+    font-size: 28rpx;
+    padding: 0 30rpx;
+    height: 70rpx;
+    line-height: 70rpx;
+  }
+  
+  

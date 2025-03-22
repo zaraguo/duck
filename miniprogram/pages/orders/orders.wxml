@@ -1,0 +1,99 @@
+<!--pages/orders/orders.wxml-->
+<view class="container">
+  <view class="page-header">
+    <text class="page-title">我的订单</text>
+  </view>
+  
+  <!-- 订单状态选项卡 -->
+  <view class="status-tabs">
+    <view 
+      class="status-tab {{currentTab === 'all' ? 'active' : ''}}" 
+      bindtap="switchTab" 
+      data-tab="all"
+    >全部</view>
+    <view 
+      class="status-tab {{currentTab === 'pending' ? 'active' : ''}}" 
+      bindtap="switchTab" 
+      data-tab="pending"
+    >待付款</view>
+    <view 
+      class="status-tab {{currentTab === 'processing' ? 'active' : ''}}" 
+      bindtap="switchTab" 
+      data-tab="processing"
+    >处理中</view>
+    <view 
+      class="status-tab {{currentTab === 'shipped' ? 'active' : ''}}" 
+      bindtap="switchTab" 
+      data-tab="shipped"
+    >已发货</view>
+    <view 
+      class="status-tab {{currentTab === 'completed' ? 'active' : ''}}" 
+      bindtap="switchTab" 
+      data-tab="completed"
+    >已完成</view>
+    <view 
+      class="status-tab {{currentTab === 'cancelled' ? 'active' : ''}}" 
+      bindtap="switchTab" 
+      data-tab="cancelled"
+    >已取消</view>
+  </view>
+  
+  <!-- 订单列表 -->
+  <view class="order-list">
+    <block wx:for="{{orders}}" wx:key="id">
+      <view 
+        wx:if="{{currentTab === 'all' || item.status === currentTab}}" 
+        class="order-card card"
+        bindtap="navigateToOrderDetail"
+        data-id="{{item.id}}"
+      >
+        <view class="order-header">
+          <text class="order-id">订单号: {{item.id}}</text>
+          <text class="order-date">{{item.date}}</text>
+          <view class="order-status status-{{item.status}}">
+            {{statusMap[item.status]}}
+          </view>
+        </view>
+        
+        <view class="order-items">
+          <view wx:for="{{item.items}}" wx:for-item="product" wx:key="id" class="order-item">
+            <text class="item-name">{{product.name}}</text>
+            <text class="item-quantity">x{{product.quantity}}</text>
+            <text class="item-price">¥{{product.price}}</text>
+          </view>
+        </view>
+        
+        <view class="order-footer">
+          <view class="order-total">
+            <text>总计: </text>
+            <text class="total-price">¥{{item.total.toFixed(2)}}</text>
+          </view>
+          <view class="order-actions">
+            <button 
+              wx:if="{{item.status === 'pending'}}" 
+              class="action-btn btn-primary" 
+              catchtap="payOrder" 
+              data-id="{{item.id}}"
+            >去付款</button>
+            <button 
+              wx:if="{{item.status === 'shipped'}}" 
+              class="action-btn btn-primary" 
+              catchtap="confirmReceipt" 
+              data-id="{{item.id}}"
+            >确认收货</button>
+            <button class="action-btn btn-outline">查看详情</button>
+          </view>
+        </view>
+      </view>
+    </block>
+    
+    <!-- 空订单状态 -->
+    <view wx:if="{{getFilteredOrders().length === 0}}" class="empty-state">
+      <view class="empty-icon">
+        <text class="iconfont icon-order"></text>
+      </view>
+      <text class="empty-text">暂无订单</text>
+    </view>
+  </view>
+</view>
+

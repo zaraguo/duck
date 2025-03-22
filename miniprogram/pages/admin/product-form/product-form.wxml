@@ -1,0 +1,96 @@
+<!--pages/admin/product-form/product-form.wxml-->
+<view class="container">
+  <view class="page-header">
+    <text class="page-title">{{isEdit ? '编辑商品' : '添加商品'}}</text>
+  </view>
+  
+  <view class="form-card card">
+    <view class="form-group">
+      <text class="form-label">商品名称</text>
+      <input 
+        class="form-input" 
+        value="{{product.name}}" 
+        placeholder="请输入商品名称" 
+        bindinput="handleInput" 
+        data-field="name"
+      />
+    </view>
+    
+    <view class="form-group">
+      <text class="form-label">商品描述</text>
+      <textarea 
+        class="form-textarea" 
+        value="{{product.description}}" 
+        placeholder="请输入商品描述" 
+        bindinput="handleInput" 
+        data-field="description"
+      ></textarea>
+    </view>
+    
+    <view class="form-group">
+      <text class="form-label">价格 (¥)</text>
+      <input 
+        class="form-input" 
+        type="digit" 
+        value="{{product.price}}" 
+        placeholder="请输入价格" 
+        bindinput="handleInput" 
+        data-field="price"
+      />
+    </view>
+    
+    <view class="form-group">
+      <text class="form-label">库存</text>
+      <input 
+        class="form-input" 
+        type="number" 
+        value="{{product.stock}}" 
+        placeholder="请输入库存" 
+        bindinput="handleInput" 
+        data-field="stock"
+      />
+    </view>
+    
+    <view class="form-group">
+      <text class="form-label">类别</text>
+      <picker 
+        bindchange="handleCategoryChange" 
+        value="{{categories.indexOf(product.category)}}" 
+        range="{{categories}}"
+      >
+        <view class="form-picker">
+          <text>{{product.category}}</text>
+          <text class="picker-arrow">▼</text>
+        </view>
+      </picker>
+    </view>
+    
+    <view class="form-group">
+      <text class="form-label">精选商品</text>
+      <switch checked="{{product.featured}}" bindchange="toggleFeatured" color="var(--primary-color)" />
+    </view>
+    
+    <view class="form-group">
+      <text class="form-label">商品图片</text>
+      <view class="image-upload-grid">
+        <view 
+          wx:for="{{product.images}}" 
+          wx:key="index" 
+          class="image-upload-item"
+          bindtap="chooseImage"
+          data-index="{{index}}"
+        >
+          <image src="{{item}}" mode="aspectFill"></image>
+          <view class="upload-overlay">
+            <text class="upload-icon">+</text>
+          </view>
+        </view>
+      </view>
+    </view>
+    
+    <button class="submit-btn btn-primary" bindtap="submitForm">
+      {{isEdit ? '更新商品' : '添加商品'}}
+    </button>
+  </view>
+</view>
+

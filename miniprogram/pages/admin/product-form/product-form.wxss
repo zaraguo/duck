@@ -1,0 +1,109 @@
+/* pages/admin/product-form/product-form.wxss */
+.page-header {
+    padding: 20rpx 0;
+    margin-bottom: 20rpx;
+  }
+  
+  .page-title {
+    font-size: 36rpx;
+    font-weight: bold;
+  }
+  
+  .form-card {
+    padding: 30rpx;
+  }
+  
+  .form-group {
+    margin-bottom: 30rpx;
+  }
+  
+  .form-label {
+    display: block;
+    font-size: 28rpx;
+    margin-bottom: 10rpx;
+    font-weight: bold;
+  }
+  
+  .form-input {
+    width: 100%;
+    height: 80rpx;
+    border: 1rpx solid var(--border-color);
+    border-radius: 8rpx;
+    padding: 0 20rpx;
+    font-size: 28rpx;
+    box-sizing: border-box;
+  }
+  
+  .form-textarea {
+    width: 100%;
+    height: 200rpx;
+    border: 1rpx solid var(--border-color);
+    border-radius: 8rpx;
+    padding: 20rpx;
+    font-size: 28rpx;
+    box-sizing: border-box;
+  }
+  
+  .form-picker {
+    width: 100%;
+    height: 80rpx;
+    border: 1rpx solid var(--border-color);
+    border-radius: 8rpx;
+    padding: 0 20rpx;
+    font-size: 28rpx;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .picker-arrow {
+    font-size: 24rpx;
+    color: var(--light-text);
+  }
+  
+  .image-upload-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20rpx;
+  }
+  
+  .image-upload-item {
+    position: relative;
+    width: 100%;
+    height: 200rpx;
+    border: 1rpx dashed var(--border-color);
+    border-radius: 8rpx;
+    overflow: hidden;
+  }
+  
+  .image-upload-item image {
+    width: 100%;
+    height: 100%;
+  }
+  
+  .upload-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .upload-icon {
+    font-size: 60rpx;
+    color: #fff;
+  }
+  
+  .submit-btn {
+    margin-top: 40rpx;
+    height: 80rpx;
+    line-height: 80rpx;
+    font-size: 30rpx;
+  }
+  
+  

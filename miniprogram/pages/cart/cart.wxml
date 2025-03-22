@@ -1,0 +1,75 @@
+<!--pages/cart/cart.wxml-->
+<view class="container">
+  <view class="page-header">
+    <text class="page-title">购物车</text>
+  </view>
+  
+  <block wx:if="{{!isEmpty}}">
+    <!-- 购物车商品列表 -->
+    <view class="cart-items">
+      <view wx:for="{{cartItems}}" wx:key="id" class="cart-item card">
+        <view class="item-image">
+          <image src="{{item.image}}" mode="aspectFill"></image>
+        </view>
+        <view class="item-info">
+          <text class="item-name">{{item.name}}</text>
+          <text class="item-price">¥{{item.price}}</text>
+          <view class="item-actions">
+            <view class="quantity-controls">
+              <view 
+                class="quantity-btn" 
+                bindtap="updateQuantity" 
+                data-id="{{item.id}}" 
+                data-action="decrease"
+              >-</view>
+              <view class="quantity-value">{{item.quantity}}</view>
+              <view 
+                class="quantity-btn" 
+                bindtap="updateQuantity" 
+                data-id="{{item.id}}" 
+                data-action="increase"
+              >+</view>
+            </view>
+            <view 
+              class="remove-btn" 
+              bindtap="removeItem" 
+              data-id="{{item.id}}"
+            >
+              <text class="iconfont icon-delete"></text>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+    
+    <!-- 订单摘要 -->
+    <view class="order-summary card">
+      <view class="summary-item">
+        <text>小计</text>
+        <text>¥{{totalPrice.toFixed(2)}}</text>
+      </view>
+      <view class="summary-item">
+        <text>运费</text>
+        <!-- <text>¥{{shippingFee.toFixed(2)}}</text> -->
+      </view>
+      <view class="divider"></view>
+      <view class="summary-item total">
+        <text>总计</text>
+        <!-- <text>¥{{(totalPrice + shippingFee).toFixed(2)}}</text> -->
+      </view>
+      <button class="checkout-btn btn-primary" bindtap="checkout">结算</button>
+    </view>
+  </block>
+  
+  <!-- 空购物车状态 -->
+  <view wx:else class="empty-cart">
+    <view class="empty-icon">
+      <text class="iconfont icon-cart"></text>
+    </view>
+    <text class="empty-text">您的购物车是空的</text>
+    <navigator url="/pages/index/index" open-type="switchTab">
+      <button class="btn-primary">去购物</button>
+    </navigator>
+  </view>
+</view>
+

@@ -1,0 +1,193 @@
+<!--pages/admin/admin.wxml-->
+<view class="container">
+  <view class="page-header">
+    <text class="page-title">商家管理后台</text>
+  </view>
+  
+  <!-- 管理选项卡 -->
+  <view class="admin-tabs">
+    <view 
+      class="admin-tab {{currentTab === 'dashboard' ? 'active' : ''}}" 
+      bindtap="switchTab" 
+      data-tab="dashboard"
+    >控制面板</view>
+    <view 
+      class="admin-tab {{currentTab === 'products' ? 'active' : ''}}" 
+      bindtap="switchTab" 
+      data-tab="products"
+    >商品管理</view>
+    <view 
+      class="admin-tab {{currentTab === 'orders' ? 'active' : ''}}" 
+      bindtap="switchTab" 
+      data-tab="orders"
+    >订单管理</view>
+  </view>
+  
+  <!-- 控制面板 -->
+  <view class="tab-content" wx:if="{{currentTab === 'dashboard'}}">
+    <!-- 数据概览 -->
+    <view class="stats-grid">
+      <view class="stat-card card">
+        <view class="stat-value">¥{{totalSales.toFixed(2)}}</view>
+        <view class="stat-label">总销售额</view>
+      </view>
+      <view class="stat-card card">
+        <view class="stat-value">{{products.length}}</view>
+        <view class="stat-label">商品数量</view>
+      </view>
+      <view class="stat-card card">
+        <view class="stat-value">{{orders.length}}</view>
+        <view class="stat-label">订单数量</view>
+      </view>
+    </view>
+    
+    <!-- 订单状态统计 -->
+    <view class="card">
+      <view class="card-header">订单状态统计</view>
+      <view class="card-content">
+        <view class="status-bar">
+          <view class="status-label">待付款</view>
+          <view class="status-count">{{statusCounts.pending}}</view>
+          <view class="status-progress-bg">
+            <view class="status-progress status-pending" style="width: {{statusCounts.pending / orders.length * 100}}%"></view>
+          </view>
+        </view>
+        <view class="status-bar">
+          <view class="status-label">处理中</view>
+          <view class="status-count">{{statusCounts.processing}}</view>
+          <view class="status-progress-bg">
+            <view class="status-progress status-processing" style="width: {{statusCounts.processing / orders.length * 100}}%"></view>
+          </view>
+        </view>
+        <view class="status-bar">
+          <view class="status-label">已发货</view>
+          <view class="status-count">{{statusCounts.shipped}}</view>
+          <view class="status-progress-bg">
+            <view class="status-progress status-shipped" style="width: {{statusCounts.shipped / orders.length * 100}}%"></view>
+          </view>
+        </view>
+        <view class="status-bar">
+          <view class="status-label">已完成</view>
+          <view class="status-count">{{statusCounts.completed}}</view>
+          <view class="status-progress-bg">
+            <view class="status-progress status-completed" style="width: {{statusCounts.completed / orders.length * 100}}%"></view>
+          </view>
+        </view>
+        <view class="status-bar">
+          <view class="status-label">已取消</view>
+          <view class="status-count">{{statusCounts.cancelled}}</view>
+          <view class="status-progress-bg">
+            <view class="status-progress status-cancelled" style="width: {{statusCounts.cancelled / orders.length * 100}}%"></view>
+          </view>
+        </view>
+      </view>
+    </view>
+    
+    <!-- 最近订单 -->
+    <view class="card">
+      <view class="card-header">
+        <text>最近订单</text>
+        <view class="view-all" bindtap="switchTab" data-tab="orders">查看全部</view>
+      </view>
+      <view class="card-content">
+        <view wx:for="{{orders.slice(0, 5)}}" wx:key="id" class="recent-order" bindtap="navigateToOrderDetail" data-id="{{item.id}}">
+          <view class="order-basic">
+            <text class="order-id">{{item.id}}</text>
+            <text class="order-customer">{{item.customer}}</text>
+          </view>
+          <view class="order-info">
+            <text class="order-date">{{item.date}}</text>
+            <text class="order-amount">¥{{item.total.toFixed(2)}}</text>
+            <view class="order-status status-{{item.status}}">
+              {{item.status === 'pending' ? '待付款' : 
+                item.status === 'processing' ? '处理中' : 
+                item.status === 'shipped' ? '已发货' : 
+                item.status === 'completed' ? '已完成' : '已取消'}}
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+  
+  <!-- 商品管理 -->
+  <view class="tab-content" wx:if="{{currentTab === 'products'}}">
+    <view class="action-header">
+      <text class="section-title">商品列表</text>
+      <button class="btn-primary" bindtap="navigateToProductForm">添加商品</button>
+    </view>
+    
+    <view class="product-list">
+      <view wx:for="{{products}}" wx:key="id" class="product-item card">
+        <view class="product-image">
+          <image src="{{item.images[0]}}" mode="aspectFill"></image>
+        </view>
+        <view class="product-details">
+          <text class="product-name">{{item.name}}</text>
+          <text class="product-price">¥{{item.price}}</text>
+          <view class="product-meta">
+            <text class="product-stock">库存: {{item.stock}}</text>
+            <text class="product-category">类别: {{item.category}}</text>
+          </view>
+          <view class="product-actions">
+            <button class="action-btn btn-outline" bindtap="navigateToProductForm" data-id="{{item.id}}">编辑</button>
+            <button class="action-btn btn-danger" bindtap="deleteProduct" data-id="{{item.id}}">删除</button>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+  
+  <!-- 订单管理 -->
+  <view class="tab-content" wx:if="{{currentTab === 'orders'}}">
+    <view class="action-header">
+      <text class="section-title">订单列表</text>
+    </view>
+    
+    <view class="order-list">
+      <view wx:for="{{orders}}" wx:key="id" class="order-item card">
+        <view class="order-header">
+          <text class="order-id">订单号: {{item.id}}</text>
+          <text class="order-date">{{item.date}}</text>
+          <view class="order-status status-{{item.status}}">
+            {{item.status === 'pending' ? '待付款' : 
+              item.status === 'processing' ? '处理中' : 
+              item.status === 'shipped' ? '已发货' : 
+              item.status === 'completed' ? '已完成' : '已取消'}}
+          </view>
+        </view>
+        <view class="order-customer-info">
+          <text>客户: {{item.customer}}</text>
+          <text>总金额: ¥{{item.total.toFixed(2)}}</text>
+        </view>
+        <view class="order-actions">
+          <button class="action-btn btn-outline" bindtap="navigateToOrderDetail" data-id="{{item.id}}">查看详情</button>
+          <view class="status-actions">
+            <button 
+              wx:if="{{item.status === 'pending'}}" 
+              class="action-btn btn-primary" 
+              bindtap="updateOrderStatus" 
+              data-id="{{item.id}}" 
+              data-status="processing"
+            >接受订单</button>
+            <button 
+              wx:if="{{item.status === 'processing'}}" 
+              class="action-btn btn-primary" 
+              bindtap="updateOrderStatus" 
+              data-id="{{item.id}}" 
+              data-status="shipped"
+            >标记发货</button>
+            <button 
+              wx:if="{{item.status === 'pending'}}" 
+              class="action-btn btn-danger" 
+              bindtap="updateOrderStatus" 
+              data-id="{{item.id}}" 
+              data-status="cancelled"
+            >取消订单</button>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
+

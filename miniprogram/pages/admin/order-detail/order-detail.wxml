@@ -1,0 +1,9 @@
+<!--pages/admin/order-detail/order-detail.wxml-->
+<view class="container" wx:if="{{order}}">
+  <view class="page-header">
+    <text class="page-title">订单详情</text>
+  </view>
+  
+  
+</view>
+
